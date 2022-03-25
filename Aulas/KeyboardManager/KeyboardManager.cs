@@ -37,13 +37,14 @@ namespace KeyboardManager
 
             foreach(Keys k in pressedKeys)
             {
-                if (keysAndState.ContainsKey(k))
+                if (!keysAndState.ContainsKey(k))
                     keysAndState.Add(k, KeyState.PRESSED);
                 else
                 {
                     if (keysAndState[k] == KeyState.PRESSED)
                         keysAndState[k] = KeyState.HELD;
-
+                    else if (keysAndState[k] == KeyState.UP || keysAndState[k] == KeyState.NONE)
+                        keysAndState[k] = KeyState.PRESSED;
 
                 }
             }
@@ -60,13 +61,13 @@ namespace KeyboardManager
             }
         }
 
-        bool IsKeyPressed(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.PRESSED;
+        public bool IsKeyPressed(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.PRESSED;
 
-        bool IsKeyUp(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.UP;
+        public bool IsKeyUp(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.UP;
 
-        bool IsKeyHeld(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.HELD;
+        public bool IsKeyHeld(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.HELD;
 
-        bool IsKeyNone(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.NONE;
+        public bool IsKeyNone(Keys k) => keysAndState.ContainsKey(k) && keysAndState[k] == KeyState.NONE;
 
 
     }
